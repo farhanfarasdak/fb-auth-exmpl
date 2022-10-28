@@ -9,7 +9,15 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+By default it will use port 3000 ( localhost:3000 )
+
+If you want to run this app in different port, you must : 
+
+```
+cp env.sample .env
+```
+
+insert port number based on your need. Example : `PORT=5010`
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
