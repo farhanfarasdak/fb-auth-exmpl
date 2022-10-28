@@ -13,6 +13,8 @@ class Login extends Component{
     signInWithEmailAndPassword(authFirebase, this.state.email, this.state.password)
       .then((userCredential) => {
         const user = userCredential.user;
+        console.log(user)
+        localStorage.setItem('jwt-token', user.accessToken)
         window.location.href = '/home'
       })
       .catch((error) => {
