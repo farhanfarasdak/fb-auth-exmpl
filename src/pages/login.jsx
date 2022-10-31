@@ -1,4 +1,4 @@
-import authFirebase from "../config/firebase";
+import { authFirebase } from "../config/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 const { Component } = require("react");
