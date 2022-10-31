@@ -3,6 +3,7 @@ import Register from './pages/register';
 import { Routes, Route } from "react-router-dom";
 import Login from './pages/login';
 import Home from './pages/home';
+import Biodata from './pages/biodata';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/home" element={<Home/>} />
+        <Route path="/biodata" element={<Biodata/>} />
       </Routes>
     </div>
   );
