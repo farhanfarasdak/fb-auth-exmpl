@@ -1,4 +1,4 @@
-import authFirebase from "../config/firebase";
+import { authFirebase } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const { Component } = require("react");
@@ -14,6 +14,7 @@ class Register extends Component{
       .then((userCredential) => {
         const user = userCredential.user;
         localStorage.setItem('jwt-token', user.accessToken)
+        console.log(user.accessToken)
         window.location.href = '/home'
       })
       .catch((error) => {
