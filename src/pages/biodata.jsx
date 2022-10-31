@@ -1,11 +1,12 @@
 import { Component } from "react";
-import { insertBiodata } from "../action/biodata";
+import { insertBiodata, retrieveAllBiodata } from "../action/biodata";
 
 class Biodata extends Component{
   state={
     name: '',
     job: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    biodata: []
   }
 
   handleInputOnchange = (event) => {
@@ -14,13 +15,25 @@ class Biodata extends Component{
     })
   }
 
-  handleInsertBiodata = () => {
+  handleInsertBiodata = async () => {
     const {name, phoneNumber, job} = this.state
     insertBiodata(name, phoneNumber, job)
     this.setState({
       name: '',
       job: '',
       phoneNumber: ''
+    })
+    const data = await retrieveAllBiodata()
+    this.setState({
+      biodata: data
+    })
+  }
+
+  async componentDidMount(){
+    //TODO FETCH ALL BIODATA HERE
+    const data = await retrieveAllBiodata()
+    this.setState({
+      biodata: data
     })
   }
 
@@ -53,8 +66,9 @@ class Biodata extends Component{
         <button type="submit" onClick={this.handleInsertBiodata}>INSERT</button>
 
         <div>
-          <h4>Name1 - 087.... - Boss</h4>
-          <h4>Name2 - 087.... - Manager</h4>
+          { this.state.biodata.map(data => (
+            <h4>{data.id} - {data.data.name} - {data.data.phoneNumber} - {data.data.job}</h4>
+          )) }
         </div>
       </div>
     )
