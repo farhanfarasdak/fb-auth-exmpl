@@ -1,12 +1,15 @@
 import { Component } from "react";
-import { insertBiodata, retrieveAllBiodata } from "../action/biodata";
+import { Link } from "react-router-dom";
+import { decodedToken } from "../action/auth";
+import { insertBiodata, retrieveAllBiodata, uploadBiodataImage } from "../action/biodata";
 
 class Biodata extends Component{
   state={
     name: '',
     job: '',
     phoneNumber: '',
-    biodata: []
+    biodata: [],
+    imageFile: {}
   }
 
   handleInputOnchange = (event) => {
@@ -16,8 +19,12 @@ class Biodata extends Component{
   }
 
   handleInsertBiodata = async () => {
+    // UPLOAD FILE
+    // GET URL UPLOADED FILE
+    const url = await uploadBiodataImage(this.state.imageFile)
+    // INSERT URL TO DB
     const {name, phoneNumber, job} = this.state
-    insertBiodata(name, phoneNumber, job)
+    insertBiodata(name, phoneNumber, job, url)
     this.setState({
       name: '',
       job: '',
@@ -34,6 +41,14 @@ class Biodata extends Component{
     const data = await retrieveAllBiodata()
     this.setState({
       biodata: data
+    })
+  }
+
+  handleFileChange = (event) => {
+    const file = event.target.files[0]
+    console.log(file)
+    this.setState({
+      imageFile: file
     })
   }
 
@@ -63,11 +78,19 @@ class Biodata extends Component{
           defaultValue={this.state.job}
           value={this.state.job}
           />
+        <input 
+          type="file"
+          onChange={this.handleFileChange}
+        />
         <button type="submit" onClick={this.handleInsertBiodata}>INSERT</button>
 
         <div>
-          { this.state.biodata.map(data => (
-            <h4>{data.id} - {data.data.name} - {data.data.phoneNumber} - {data.data.job}</h4>
+          { this.state.biodata.map(bdt => (
+            <div>
+              <Link to={`/user/${bdt.id}`}>
+                <h4>{bdt.data.name}</h4>
+              </Link> 
+            </div>
           )) }
         </div>
       </div>
