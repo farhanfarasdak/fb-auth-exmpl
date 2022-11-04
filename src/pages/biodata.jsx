@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Link } from "react-router-dom";
 import { insertBiodata, retrieveAllBiodata, uploadBiodataImage } from "../action/biodata";
 
 class Biodata extends Component{
@@ -37,7 +38,6 @@ class Biodata extends Component{
   async componentDidMount(){
     //TODO FETCH ALL BIODATA HERE
     const data = await retrieveAllBiodata()
-    console.log('componentDidMount()', data)
     this.setState({
       biodata: data
     })
@@ -83,14 +83,15 @@ class Biodata extends Component{
         />
         <button type="submit" onClick={this.handleInsertBiodata}>INSERT</button>
 
-        {/* <div>
+        <div>
           { this.state.biodata.map(bdt => (
             <div>
-              <h4>{bdt.data.name} - {bdt.data.phoneNumber} - {bdt.data.job}</h4>
-              <img src={bdt.data.url} alt="" width="100px"/>
+              <Link to={`/user/${bdt.id}`}>
+                <h4>{bdt.data.name}</h4>
+              </Link> 
             </div>
           )) }
-        </div> */}
+        </div>
       </div>
     )
   }

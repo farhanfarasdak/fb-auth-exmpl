@@ -45,6 +45,17 @@ export const retrieveAllBiodata = () => {
   })
 }
 
+// RETRIEVE ONE BIODATA
+export const getBiodataById = (id) => {
+  return new Promise((resolve, reject) => {
+    const dbRef = ref(db, `biodata/${id}`)
+    onValue(dbRef, (data) => {
+      const value = data.val()
+      resolve(value)
+    })
+  })
+}
+
 // UPLOAD BIODATA IMAGE
 export const uploadBiodataImage = async (fileObject) => {
   const imgRef = storageRef(storage, `biodata/${fileObject.name}`)
