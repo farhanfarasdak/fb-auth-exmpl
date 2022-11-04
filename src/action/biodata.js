@@ -64,5 +64,3 @@ export const uploadBiodataImage = async (fileObject) => {
   console.log(url)
   return url
 }
-
-
