@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
+import { decodedToken } from "../action/auth";
 import { insertBiodata, retrieveAllBiodata, uploadBiodataImage } from "../action/biodata";
 
 class Biodata extends Component{

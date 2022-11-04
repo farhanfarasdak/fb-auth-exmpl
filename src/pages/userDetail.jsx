@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getBiodataById } from "../action/biodata";
+import Card from "../component/card";
 
-const UserDetail = () => {
+const UserDetail = ({ builder }) => {
   const { id } = useParams()
   const [biodata, setBiodata] = useState({ name: 'Loading...', job: 'Loading...', phoneNumber: 'Loading...'})
 
@@ -20,10 +21,8 @@ const UserDetail = () => {
   return(
     <div>
       <h1>USER DETAIL</h1>
-      <h3>{biodata.name}</h3>
-      <img src={biodata.url} width="75px"></img>
-      <h3>{biodata.job}</h3>
-      <h3>{biodata.phoneNumber}</h3>
+      <Card biodata={biodata}/>
+      <h5>{builder}</h5>
     </div>
   )
 }
