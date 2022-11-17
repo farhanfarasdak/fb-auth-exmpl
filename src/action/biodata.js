@@ -4,6 +4,22 @@ import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage
 
 const db = database
 
+// WRITE USER
+export const insertUser = async (id, userData) => {
+  const data = await set(ref(db, `user/${id}`), userData)
+}
+
+// GET USER
+export const getUserById = (id) => {
+  return new Promise((resolve, reject) => {
+    const dbRef = ref(db, `user/${id}`)
+    onValue(dbRef, (data) => {
+      const value = data.val()
+      resolve(value)
+    })
+  })
+}
+
 // WRITE BIODATA
 export const insertBiodata = (name, phoneNumber, job, url) => {
   const dbRef = ref(db, 'biodata')

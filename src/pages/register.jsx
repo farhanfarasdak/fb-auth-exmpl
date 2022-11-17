@@ -1,5 +1,6 @@
 import { authFirebase } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { insertUser } from "../action/biodata";
 
 const { Component } = require("react");
 
@@ -11,11 +12,17 @@ class Register extends Component{
 
   handleRegister = () => {    
     createUserWithEmailAndPassword(authFirebase, this.state.email, this.state.password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         const user = userCredential.user;
         localStorage.setItem('jwt-token', user.accessToken)
-        console.log(user.accessToken)
-        window.location.href = '/home'
+        console.log(user)
+        // INSERT DATABASE
+        const userData = {
+          role: 'admin',
+          address: 'Jakarta'
+        }
+        await insertUser(user.uid, userData)
+        // window.location.href = '/home'
       })
       .catch((error) => {
         const errorMessage = error.message;
